@@ -482,6 +482,9 @@ impl Session {
             WebDriverCommand::GetElementText(ref we) => {
                 base.join(&format!("element/{}/text", we.0))
             }
+            WebDriverCommand::IsEnabled(ref we) => {
+                base.join(&format!("element/{}/enabled", we.0))
+            }
             WebDriverCommand::ElementSendKeys(ref we, _) => {
                 base.join(&format!("element/{}/value", we.0))
             }
