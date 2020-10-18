@@ -1106,6 +1106,28 @@ impl Element {
             .await?;
         Ok(client)
     }
+
+    /// Check the element is displayed on a webpage.
+    pub async fn is_displayed(&mut self) -> Result<bool, error::CmdError> {
+        let cmd = WebDriverCommand::IsDisplayed(self.element.clone());
+        let result = self.client.issue(cmd).await?;
+
+        match result {
+            Json::Bool(v) => Ok(v),
+            _ => Err(error::CmdError::NotW3C(result))
+        }
+    }
+
+    /// Check the element is enabled to be interected.
+    pub async fn is_enabled(&mut self) -> Result<bool, error::CmdError> {
+        let cmd = WebDriverCommand::IsEnabled(self.element.clone());
+        let result = self.client.issue(cmd).await?;
+
+        match result {
+            Json::Bool(v) => Ok(v),
+            _ => Err(error::CmdError::NotW3C(result))
+        }
+    }
 }
 
 impl Form {
